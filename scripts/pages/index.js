@@ -1,8 +1,13 @@
 async function getPhotographers() {
-  let datas = await fetch("../data/photographers.json");
-  const photographers = await datas.json();
-  console.log(photographers);
-  return photographers;
+  try {
+    let response = await fetch("../data/photographers.json");
+    if (!response.ok) throw new Error("Erreur lors du chargement des données.");
+    const photographers = await response.json();
+    return photographers;
+  } catch (error) {
+    alert("Les données des photographes n'ont pas pu être chargées.");
+    return null;
+  }
 }
 
 async function displayData(photographers) {
@@ -12,6 +17,13 @@ async function displayData(photographers) {
     const photographerModel = photographerTemplate(photographer);
     const userCardDOM = photographerModel.getUserCardDOM();
     photographersSection.appendChild(userCardDOM);
+
+    // Crée un lien pour chaque photographe
+    const photographerLink = document.createElement("a");
+    photographerLink.href = `photographer.html?id=${photographer.id}`;
+    photographerLink.setAttribute("aria-label", `Voir la page de ${photographer.name}`);
+    photographerLink.appendChild(userCardDOM);
+    photographersSection.appendChild(photographerLink);
   });
 }
 

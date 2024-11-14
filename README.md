@@ -1,9 +1,2 @@
-# Base de code du projet P6 - Parcours Front-end
-
-## Démarrer le projet
-
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
-
-"# FISHEYE_" 
-"# FISHEYE_" 
-"# FISHEYE_" 
+FishEye est un site web qui permet aux photographes indépendants de présenter leurs meilleurs travaux.
+sa priorité absolue est l'accessibilité. site conforme aux exigences d'accessibilité .

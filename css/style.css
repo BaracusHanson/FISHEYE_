@@ -47,4 +47,46 @@ h1 {
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+/* STYLE AJOUTE */
+
+p {
+    text-align: center;
+    font-family: "DM Sans";
+    font-style: normal;
+    line-height: normal;
+    margin: 3px 0;
+    font-weight: 400;
+    margin: 0;
+}
+article>p:nth-child(3){
+    color: #901C1C;
+    font-size: 0.8rem;
+}
+article>p:nth-child(4){
+    color: #000;
+    font-size: 0.6rem;
+}
+article>p:nth-child(5){
+    color: #757575;
+    font-size: 0.6rem;
+}
+
+h2 {
+    color: #901C1C;
+    font-size: 0.8rem;
+    margin: 20px 0 3px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:focus {
+    border: 5px solid #f39c12;
+    border-radius: 5px;
 }
