@@ -1,5 +1,16 @@
 export function photographerTemplate(data) {
-  const { name, portrait, city, tagline, price, country, title, image, likes, video } = data;
+  const {
+    name,
+    portrait,
+    city,
+    tagline,
+    price,
+    country,
+    title,
+    image,
+    likes,
+    video,
+  } = data;
 
   const picture = `assets/photographers/${portrait}`;
 
@@ -31,6 +42,7 @@ export function photographerTemplate(data) {
   }
   function getUserCardHeaderInfos() {
     const article = document.createElement("article");
+    const photograperName = document.querySelector("#photograperName");
     const h2 = document.createElement("h2");
     const p3 = document.createElement("p");
     const p4 = document.createElement("p");
@@ -47,6 +59,7 @@ export function photographerTemplate(data) {
     h2.textContent = name;
     p3.textContent = `${city}, ${country}`;
     p4.textContent = tagline;
+    photograperName.textContent = name;
     // p5.innerHTML = `${price} &euro;/jour`;
     // article.appendChild(img);
     article.appendChild(h2);
@@ -132,13 +145,13 @@ export function photographerTemplate(data) {
 
     return article;
   }
-  
+
   return {
     name,
     picture,
     getUserCardDOM,
     getUserCardHeaderInfos,
     getUserCardHeaderImage,
-    createMediaCard
+    createMediaCard,
   };
 }

@@ -48,6 +48,7 @@ export async function displayPhotographerData() {
 
 displayPhotographerData();
 
+// gestion Affichage des medias du photograph dans la page details 
 export function displayPhotographerMedia(medias) {
   const photographerMedia = document.querySelector(".articleSection");
 
@@ -57,3 +58,4 @@ export function displayPhotographerMedia(medias) {
     photographerMedia.appendChild(mediaCard);
   });
 }
+
