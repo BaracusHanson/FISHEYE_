@@ -1,4 +1,5 @@
 import { photographerTemplate } from "../templates/photographer.js";
+import { displayPhotographerMedia } from "./photographer.js";
 
  export async function getPhotographers() {
   try {
@@ -32,9 +33,16 @@ async function displayData(photographers) {
 }
 
 async function init() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const photographerId = parseInt(urlParams.get("id"), 10);
+
   // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
+  const { media } = await getPhotographers();
+  const photographerMedia = media.filter((m) => m.photographerId === photographerId);
+  // console.log(photographerMedia);
   displayData(photographers);
+  displayPhotographerMedia(photographerMedia);
 }
 
 init();
