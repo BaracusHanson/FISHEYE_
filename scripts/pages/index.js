@@ -1,8 +1,12 @@
-async function getPhotographers() {
+import { photographerTemplate } from "../templates/photographer.js";
+
+ export async function getPhotographers() {
   try {
     let response = await fetch("../data/photographers.json");
     if (!response.ok) throw new Error("Erreur lors du chargement des données.");
     const photographers = await response.json();
+ 
+
     return photographers;
   } catch (error) {
     alert("Les données des photographes n'ont pas pu être chargées.");
