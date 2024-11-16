@@ -105,6 +105,39 @@
       </div>
     </div>
 
+<!-- LIGHTBOX -->
+
+<div class="lightBoxContainer hidden" aria-hidden="true" role="dialog" aria-labelledby="ImageTitle">
+  <div class="lightBoxImageContainer">
+    <!-- Bouton de fermeture -->
+    <button class="closeLightBox" aria-label="Fermer la LightBox">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <!-- Média affiché (image/vidéo) -->
+    <div id="media-container">
+      <img
+        class=" lithBoxImage"
+        src="./assets/photographers/Animals_Majesty.jpg"
+        alt="Image Title"
+      />
+    </div>
+    <!-- Titre du média -->
+    <div class="ImageTitleContainer">
+      <h1 id="ImageTitle">Image Title</h1>
+    </div>
+    <!-- Contrôles de navigation -->
+    <div class="lightBoxImageController">
+      <button id="prev" aria-label="Média précédent">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button id="next" aria-label="Média suivant">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
     <script type="module" src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>

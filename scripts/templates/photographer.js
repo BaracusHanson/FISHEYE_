@@ -10,6 +10,9 @@ export function photographerTemplate(data) {
     image,
     likes,
     video,
+    id,
+    photographerId,
+    mediasByUser,
   } = data;
 
   const picture = `assets/photographers/${portrait}`;
@@ -47,25 +50,24 @@ export function photographerTemplate(data) {
     const p3 = document.createElement("p");
     const p4 = document.createElement("p");
     const img = document.createElement("img");
-    // const p5 = document.createElement("p");
+
     img.setAttribute("src", picture);
     img.setAttribute("alt", `portrait de ${name}`);
     h2.setAttribute("aria-label", "Nom de la photographe");
     p3.setAttribute("aria-label", "Localisation");
     p4.setAttribute("aria-label", "Spécialité du photographe");
-    // p5.setAttribute("aria-label", "Tarif journalier");
+
     article.setAttribute("role", "article");
     article.setAttribute("aria-labelledby", name);
     h2.textContent = name;
     p3.textContent = `${city}, ${country}`;
     p4.textContent = tagline;
     photograperName.textContent = name;
-    // p5.innerHTML = `${price} &euro;/jour`;
-    // article.appendChild(img);
+
     article.appendChild(h2);
     article.appendChild(p3);
     article.appendChild(p4);
-    // article.appendChild(p5);
+
     return article;
   }
   function getUserCardHeaderImage() {
@@ -85,7 +87,8 @@ export function photographerTemplate(data) {
     article.classList.add("articleSectionCard");
     article.setAttribute("role", "group");
     article.setAttribute("aria-label", `${title}, ${likes} likes`);
-
+    article.setAttribute("data-id", id);
+    article.setAttribute("data-photographerId", photographerId);
     // Élément média (image ou vidéo)
     let mediaElement;
     if (image) {
@@ -96,8 +99,8 @@ export function photographerTemplate(data) {
     } else if (video) {
       mediaElement = document.createElement("video");
       mediaElement.src = `./assets/photographers/${video}`;
-      mediaElement.setAttribute("aria-label", title); // Accessibilité
-      mediaElement.controls = true; // Vidéo contrôlable
+      mediaElement.setAttribute("aria-label", title);
+      mediaElement.controls = true;
       mediaElement.classList.add("articleSectionCardImage");
     }
 
@@ -153,5 +156,8 @@ export function photographerTemplate(data) {
     getUserCardHeaderInfos,
     getUserCardHeaderImage,
     createMediaCard,
+    // createLightBox
   };
 }
+
+
