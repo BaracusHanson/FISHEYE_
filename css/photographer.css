@@ -475,10 +475,68 @@ button {
     display: none;
 }
 
-#main > section > article > div > div > div > i.fa-regular.fa-heart {
-  
-}
 
-.active{
+.active {
     display: block;
 }
+
+.sortContainer {
+    width: 260px;
+    display: flex;
+    gap: 11px;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid red; */
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.sortContainer>h2:nth-child(1) {
+    margin: 0;
+    color: #000;
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+#sortMenu {
+    width: 170px;
+    height: 69px;
+    border-radius: 5px;
+    background: #901C1C;
+    color: #FFF;
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+option {
+    width: 170px;
+    height: 69px;
+    border-radius: 5px;
+    background: #901C1C;
+    color: #FFF;
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+  }
+  

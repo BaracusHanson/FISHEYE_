@@ -86,7 +86,9 @@ export function photographerTemplate(data) {
     const article = document.createElement("article");
     article.classList.add("articleSectionCard");
     article.setAttribute("role", "group");
-    article.setAttribute("aria-label", `${title}, ${likes} likes`);
+    article.setAttribute("aria-label", `${title}`);
+    article.setAttribute("likes", `${likes}`);
+    article.setAttribute("titles", `${title}`);
 
     // Élément média (image ou vidéo)
     let mediaElement;
@@ -207,3 +209,5 @@ export function photographerTemplate(data) {
     handleLikes,
   };
 }
+
+

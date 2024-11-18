@@ -1,5 +1,5 @@
 import { photographerTemplate } from "../templates/photographer.js";
-import { displayPhotographerMedia, openLightBox } from "./photographer.js";
+import { displayPhotographerMedia, openLightBox, } from "./photographer.js";
 
 export async function getPhotographers() {
   try {
@@ -41,17 +41,19 @@ async function init() {
   // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
   const { media } = await getPhotographers();
-  const photographerMedia = media.filter(
+   const photographerMedia = media.filter(
     (m) => m.photographerId === photographerId
   );
   // console.log(photographerMedia);
   displayData(photographers);
   displayPhotographerMedia(photographerMedia);
   openLightBox(media);
-    // Envoyer photographerMedia comme paramètre à handleLikes
-const sendMediaToHandleLikes = photographerTemplate(photographerMedia);
-sendMediaToHandleLikes.handleLikes(photographerMedia);
+  // Envoyer photographerMedia comme paramètre à handleLikes
+  const sendMediaToHandleLikes = photographerTemplate(photographerMedia);
+  sendMediaToHandleLikes.handleLikes(photographerMedia);
   
+
 }
 
 init();
+

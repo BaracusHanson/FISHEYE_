@@ -45,19 +45,60 @@ export async function displayPhotographerData() {
   const userCardDOMImage = photographerModelImage.getUserCardHeaderImage();
   photographerHeaderImage.appendChild(userCardDOMImage);
 }
-
 displayPhotographerData();
 
 // gestion Affichage des medias du photograph dans la page details
 export function displayPhotographerMedia(medias) {
-  const photographerMedia = document.querySelector(".articleSection");
+  const photographerMediaContainer = document.querySelector(".articleSection");
+  const sortMenu = document.getElementById("sortMenu");
 
-  medias.forEach((media) => {
-    const mediaModel = photographerTemplate(media);
-    const mediaCard = mediaModel.createMediaCard();
-    photographerMedia.appendChild(mediaCard);
+  // Fonction pour réafficher les médias triés ou non triés
+  function renderMedia(mediaArray) {
+    photographerMediaContainer.innerHTML = ""; // Vider le conteneur
+    mediaArray.forEach((media) => {
+      const mediaModel = photographerTemplate(media); // Crée un modèle pour chaque média
+      const mediaCard = mediaModel.createMediaCard(); // Génère la carte du média
+      photographerMediaContainer.appendChild(mediaCard); // Ajoute la carte au DOM
+    });
+  }
+
+  // Fonction de tri par popularité (likes décroissants)
+  function sortByPopularity(mediaArray) {
+    return [...mediaArray].sort((a, b) => b.likes - a.likes); // Utilise une copie du tableau
+  }
+
+  // Fonction de tri par titre (ordre alphabétique)
+  function sortByTitle(mediaArray) {
+    return [...mediaArray].sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
+      return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+    });
+  }
+
+  // Applique le rendu initial sans tri
+  renderMedia(medias);
+
+  // Écouteu d'événements pour changer le tri
+  sortMenu.addEventListener("change", (event) => {
+    const sortOption = event.target.value;
+
+    // Initialise les médias triés avec une copie des médias d'origine
+    let sortedMedia = [...medias];
+
+    // Applique le tri selon l'option sélectionnée
+    if (sortOption === "popularite") {
+      sortedMedia = sortByPopularity(medias);
+    } else if (sortOption === "titre") {
+      sortedMedia = sortByTitle(medias);
+    }
+
+    // Réaffiche les médias (triés ou par défaut)
+    renderMedia(sortedMedia);
   });
 }
+
+
 
 export function openLightBox(media) {
   const articles = document.querySelectorAll(".articleSectionCardImage");
@@ -71,16 +112,18 @@ export function openLightBox(media) {
   articles.forEach((article, index) => {
     article.addEventListener("click", (e) => {
       lightBox.classList.remove("hidden");
-  
+
       // Récupérer les médias du photographe
-      const mediaphotographerId = e.currentTarget.getAttribute("data-photographerId");
+      const mediaphotographerId = e.currentTarget.getAttribute(
+        "data-photographerId"
+      );
       const mediasByUser = media.filter((media) => {
         return media.photographerId === parseInt(mediaphotographerId, 10);
       });
-  
+
       // Initialiser l'index actif à celui de l'élément cliqué
       let currentIndex = index;
-  
+
       // Fonction pour afficher un média donné dans la Lightbox
       const displayMedia = (index) => {
         const currentMedia = mediasByUser[index];
@@ -100,28 +143,28 @@ export function openLightBox(media) {
               aria-label="${currentMedia.title}"
             ></video>`;
         }
-  
+
         // Mettre à jour le titre
         document.getElementById("ImageTitle").textContent = currentMedia.title;
       };
-  
+
       // Afficher le média initial
       displayMedia(currentIndex);
-  
+
       // Gestion du bouton "suivant"
       suivant.addEventListener("click", () => {
         currentIndex = (currentIndex + 1) % mediasByUser.length; // Retourne au début si on dépasse la fin
         displayMedia(currentIndex);
       });
-  
+
       // Gestion du bouton "précédent"
       precedent.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + mediasByUser.length) % mediasByUser.length; // Retourne à la fin si on passe en dessous de 0
+        currentIndex =
+          (currentIndex - 1 + mediasByUser.length) % mediasByUser.length; // Retourne à la fin si on passe en dessous de 0
         displayMedia(currentIndex);
       });
     });
   });
-  
 }
 function closeLightBox() {
   const lightBox = document.querySelector(".lightBoxContainer");
@@ -131,10 +174,4 @@ function closeLightBox() {
     lightBox.classList.add("hidden");
   });
 }
-
 closeLightBox();
-
-
-
-
-

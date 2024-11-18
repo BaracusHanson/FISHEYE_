@@ -29,6 +29,23 @@
         </button>
         <section class="photograph-header-image"></section>
       </div>
+      <div class="sortContainer">
+        <h2>Trier par</h2>
+        <div>
+          <label for="sortMenu" class="sr-only">Trier les médias</label>
+          <!-- Label accessible pour les lecteurs d'écran -->
+          <select
+            id="sortMenu"
+            aria-label="Trier les médias par popularité ou titre"
+          >
+            <option value="popularite" aria-label="Trier par popularité">
+              Popularité
+            </option>
+            <option value="titre" aria-label="Trier par titre">Titre</option>
+          </select>
+        </div>
+      </div>
+
       <section class="articleSection"></section>
       <div class="fees">
         <div>
