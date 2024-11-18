@@ -12,7 +12,6 @@ export function photographerTemplate(data) {
     video,
     id,
     photographerId,
-    mediasByUser,
   } = data;
 
   const picture = `assets/photographers/${portrait}`;
@@ -46,11 +45,12 @@ export function photographerTemplate(data) {
   function getUserCardHeaderInfos() {
     const article = document.createElement("article");
     const photograperName = document.querySelector("#photograperName");
+    const pricePara = document.querySelector(".price");
     const h2 = document.createElement("h2");
     const p3 = document.createElement("p");
     const p4 = document.createElement("p");
     const img = document.createElement("img");
-
+    pricePara.setAttribute("aria-label", "Spécialité du photographe");
     img.setAttribute("src", picture);
     img.setAttribute("alt", `portrait de ${name}`);
     h2.setAttribute("aria-label", "Nom de la photographe");
@@ -61,9 +61,9 @@ export function photographerTemplate(data) {
     article.setAttribute("aria-labelledby", name);
     h2.textContent = name;
     p3.textContent = `${city}, ${country}`;
-    p4.textContent = tagline;
+    p3.textContent = `${city}, ${country}`;
     photograperName.textContent = name;
-
+    pricePara.innerHTML = `${price}&euro;/jour`;
     article.appendChild(h2);
     article.appendChild(p3);
     article.appendChild(p4);
@@ -87,13 +87,14 @@ export function photographerTemplate(data) {
     article.classList.add("articleSectionCard");
     article.setAttribute("role", "group");
     article.setAttribute("aria-label", `${title}, ${likes} likes`);
-    article.setAttribute("data-id", id);
-    article.setAttribute("data-photographerId", photographerId);
+
     // Élément média (image ou vidéo)
     let mediaElement;
     if (image) {
       mediaElement = document.createElement("img");
       mediaElement.src = `./assets/photographers/${image}`;
+      mediaElement.setAttribute("data-id", id);
+      mediaElement.setAttribute("data-photographerId", photographerId);
       mediaElement.alt = title; // Accessibilité
       mediaElement.classList.add("articleSectionCardImage");
     } else if (video) {
@@ -149,6 +150,53 @@ export function photographerTemplate(data) {
     return article;
   }
 
+  function handleLikes(medias) {
+    const likeIconsSolid = document.querySelectorAll(
+      "#main > section > article > div > div > div > i.fa-solid.fa-heart"
+    );
+    const likeIcons = document.querySelectorAll(
+      "#main > section > article > div > div > div > i.fa-regular.fa-heart"
+    );
+    const likeCounts = document.querySelectorAll(".articleSectionCardLikeNomber");
+    const totalLikedElement = document.querySelector(".totalLiked");
+  
+    // Calcul initial du total des likes
+    let totalLikes = medias.reduce((sum, media) => sum + media.likes, 0);
+    totalLikedElement.textContent = totalLikes;
+  
+    likeIcons.forEach((icon, index) => {
+      let isLiked = false; // Empêche le multi-like sur un même média
+      icon.addEventListener("click", () => {
+        if (!isLiked) {
+          // Passe à "aimé"
+          likeIconsSolid[index].style.display = "inline-block";
+          likeIcons[index].style.display = "none";
+  
+          // Met à jour les données et le DOM
+          medias[index].likes += 1;
+          totalLikes += 1;
+          likeCounts[index].textContent = medias[index].likes;
+          totalLikedElement.textContent = totalLikes;
+  
+          isLiked = true;
+        } else {
+          // Passe à "non-aimé"
+          likeIconsSolid[index].style.display = "none";
+          likeIcons[index].style.display = "inline-block";
+  
+          // Met à jour les données et le DOM
+          medias[index].likes -= 1;
+          totalLikes -= 1;
+          likeCounts[index].textContent = medias[index].likes;
+          totalLikedElement.textContent = totalLikes;
+  
+          isLiked = false;
+        }
+      });
+    });
+  }
+  
+
   return {
     name,
     picture,
@@ -156,8 +204,6 @@ export function photographerTemplate(data) {
     getUserCardHeaderInfos,
     getUserCardHeaderImage,
     createMediaCard,
-    // createLightBox
+    handleLikes,
   };
 }
-
-

@@ -48,6 +48,10 @@ async function init() {
   displayData(photographers);
   displayPhotographerMedia(photographerMedia);
   openLightBox(media);
+    // Envoyer photographerMedia comme paramètre à handleLikes
+const sendMediaToHandleLikes = photographerTemplate(photographerMedia);
+sendMediaToHandleLikes.handleLikes(photographerMedia);
+  
 }
 
 init();

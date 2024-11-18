@@ -60,7 +60,7 @@ export function displayPhotographerMedia(medias) {
 }
 
 export function openLightBox(media) {
-  const articles = document.querySelectorAll(".articleSectionCard");
+  const articles = document.querySelectorAll(".articleSectionCardImage");
   const lightBox = document.querySelector(".lightBoxContainer");
   const mediaContainer = document.querySelector("#media-container");
   const suivant = document.querySelector("#next");
@@ -133,3 +133,8 @@ function closeLightBox() {
 }
 
 closeLightBox();
+
+
+
+
+
