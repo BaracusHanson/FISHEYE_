@@ -45,6 +45,7 @@ export async function displayPhotographerData() {
   const userCardDOMImage = photographerModelImage.getUserCardHeaderImage();
   photographerHeaderImage.appendChild(userCardDOMImage);
 }
+
 displayPhotographerData();
 
 // gestion Affichage des medias du photograph dans la page details
@@ -60,6 +61,12 @@ export function displayPhotographerMedia(medias) {
       const mediaCard = mediaModel.createMediaCard(); // Génère la carte du média
       photographerMediaContainer.appendChild(mediaCard); // Ajoute la carte au DOM
     });
+    // Réattacher les événements après chaque rendu
+    openLightBox(mediaArray);
+    closeLightBox();
+    const likedEventtrigger = photographerTemplate(mediaArray);
+    likedEventtrigger.handleLikes(mediaArray);
+    // handleLikes(mediaArray);
   }
 
   // Fonction de tri par popularité (likes décroissants)
@@ -76,29 +83,27 @@ export function displayPhotographerMedia(medias) {
     });
   }
 
-  // Applique le rendu initial sans tri
+  // Appliquer le rendu initial sans tri
   renderMedia(medias);
 
-  // Écouteu d'événements pour changer le tri
+  // Écouteur d'événements pour changer le tri
   sortMenu.addEventListener("change", (event) => {
     const sortOption = event.target.value;
 
-    // Initialise les médias triés avec une copie des médias d'origine
+    // Initialiser les médias triés avec une copie des médias d'origine
     let sortedMedia = [...medias];
 
-    // Applique le tri selon l'option sélectionnée
+    // Appliquer le tri selon l'option sélectionnée
     if (sortOption === "popularite") {
       sortedMedia = sortByPopularity(medias);
     } else if (sortOption === "titre") {
       sortedMedia = sortByTitle(medias);
     }
 
-    // Réaffiche les médias (triés ou par défaut)
+    // Réafficher les médias (triés ou par défaut)
     renderMedia(sortedMedia);
   });
 }
-
-
 
 export function openLightBox(media) {
   const articles = document.querySelectorAll(".articleSectionCardImage");
@@ -174,4 +179,5 @@ function closeLightBox() {
     lightBox.classList.add("hidden");
   });
 }
+
 closeLightBox();
