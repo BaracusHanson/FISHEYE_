@@ -1,8 +1,8 @@
-import { photographerTemplate } from "/scripts/templates/photographer.js";
+import { photographerTemplate } from "../templates/photographer.js";
 import {
   displayPhotographerMedia,
   openLightBox,
-} from "/scripts/pages/photographer.js";
+} from "./photographer.js";
 
 export async function getPhotographers() {
   try {

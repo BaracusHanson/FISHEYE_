@@ -1,6 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
-import { getPhotographers } from "/scripts/pages/index.js";
-import { photographerTemplate } from "/scripts/templates/photographer.js";
+import { getPhotographers } from "./index.js";
+import { photographerTemplate } from "../templates/photographer.js";
 
 // Afficher le profil du photographe
 export async function displayPhotographerData() {
