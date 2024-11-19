@@ -1,5 +1,5 @@
 import { photographerTemplate } from "../templates/photographer.js";
-import { displayPhotographerMedia, openLightBox, } from "./photographer.js";
+import { displayPhotographerMedia, openLightBox } from "./photographer.js";
 
 export async function getPhotographers() {
   try {
@@ -9,8 +9,10 @@ export async function getPhotographers() {
 
     return photographers;
   } catch (error) {
-    alert("Les données des photographes n'ont pas pu être chargées.");
-    return null;
+    throw new Error(
+      "Les données des photographes n'ont pas pu être chargées.",
+      error
+    );
   }
 }
 
@@ -20,7 +22,8 @@ async function displayData(photographers) {
   photographers.forEach((photographer) => {
     const photographerModel = photographerTemplate(photographer);
     const userCardDOM = photographerModel.getUserCardDOM();
-    photographersSection.appendChild(userCardDOM);
+
+    photographersSection?.appendChild(userCardDOM);
 
     // Crée un lien pour chaque photographe
     const photographerLink = document.createElement("a");
@@ -30,7 +33,7 @@ async function displayData(photographers) {
       `Voir la page de ${photographer.name}`
     );
     photographerLink.appendChild(userCardDOM);
-    photographersSection.appendChild(photographerLink);
+    photographersSection?.appendChild(photographerLink);
   });
 }
 
@@ -41,19 +44,17 @@ async function init() {
   // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
   const { media } = await getPhotographers();
-   const photographerMedia = media.filter(
+  const photographerMedia = media.filter(
     (m) => m.photographerId === photographerId
   );
   // console.log(photographerMedia);
   displayData(photographers);
+
   displayPhotographerMedia(photographerMedia);
   openLightBox(media);
   // Envoyer photographerMedia comme paramètre à handleLikes
   const sendMediaToHandleLikes = photographerTemplate(photographerMedia);
   sendMediaToHandleLikes.handleLikes(photographerMedia);
-  
-
 }
 
 init();
-

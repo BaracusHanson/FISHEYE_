@@ -55,7 +55,11 @@ export function displayPhotographerMedia(medias) {
 
   // Fonction pour réafficher les médias triés ou non triés
   function renderMedia(mediaArray) {
-    photographerMediaContainer.innerHTML = ""; // Vider le conteneur
+    // Vider le conteneur
+
+    
+    photographerMediaContainer.innerHTML = "";
+
     mediaArray.forEach((media) => {
       const mediaModel = photographerTemplate(media); // Crée un modèle pour chaque média
       const mediaCard = mediaModel.createMediaCard(); // Génère la carte du média
@@ -83,6 +87,8 @@ export function displayPhotographerMedia(medias) {
   }
 
   // Appliquer le rendu initial sans tri
+
+ 
   renderMedia(medias);
 
   // Écouteur d'événements pour changer le tri
@@ -105,9 +111,7 @@ export function displayPhotographerMedia(medias) {
 }
 
 export function openLightBox(media) {
-  const articles = document.querySelectorAll(
-    ".articleSectionCardImage"
-  );
+  const articles = document.querySelectorAll(".articleSectionCardImage");
   const lightBox = document.querySelector(".lightBoxContainer");
   const mediaContainer = document.querySelector("#media-container");
   const suivant = document.querySelector("#next");

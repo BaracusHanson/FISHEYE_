@@ -179,7 +179,7 @@ export function photographerTemplate(data) {
       let isLiked = false; // Empêche le multi-like sur un même média
   
       // Gestion de l'événement "click"
-      icon.addEventListener("click", (e) => {
+      icon.addEventListener("click", () => {
         toggleLike(index, isLiked);
         isLiked = !isLiked; // Inverse l'état après chaque clic
       });

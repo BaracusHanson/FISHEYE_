@@ -1,5 +1,8 @@
+const modal = document.getElementById("contact_modal");
+modal.addEventListener("click", () => {
+  displayModal;
+});
 function displayModal() {
-  const modal = document.getElementById("contact_modal");
   modal.style.display = "block";
 }
 
@@ -20,7 +23,6 @@ document
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
 
-   
     console.log("Formulaire soumis avec les données suivantes :");
     console.log("Prénom : " + firstName);
     console.log("Nom : " + lastName);
@@ -30,5 +32,3 @@ document
     // Fermeture la modale après la soumission
     closeModal();
   });
-
-
