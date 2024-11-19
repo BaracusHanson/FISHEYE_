@@ -6,7 +6,7 @@ import {
 
 export async function getPhotographers() {
   try {
-    let response = await fetch("/data/photographers.json");
+    let response = await fetch("./data/photographers.json");
     if (!response.ok) throw new Error("Erreur lors du chargement des données.");
     const photographers = await response.json();
 
