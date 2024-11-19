@@ -228,33 +228,4 @@ function closeLightBox() {
 }
 closeLightBox();
 
-// Fonction pour gérer l'interaction via le clavier
-// function setupKeyboardAccessibility() {
-//   // Sélectionner tous les éléments interactifs
 
-//   console.log(focusableElements);
-//   // Ajouter des gestionnaires d'événements pour les interactions clavier
-//   focusableElements.forEach((element) => {
-//     element.addEventListener("keydown", (event) => {
-//       // Simule un clic si Enter ou Space est pressé
-//       if (event.key === "Enter" || event.key === "") {
-//         event.preventDefault(); // Empêche tout comportement par défaut
-//         element.click(); // Simule un clic sur l'élément
-//       }
-//     });
-
-//     // Ajouter une gestion de clic (exemple : aimer ou ouvrir une lightbox)
-//     // element.addEventListener("click", () => {
-//     //   if (element.classList.contains("heartContainer")) {
-//     //     // Exemple : gérer un like
-//     //     toggleLike(element);
-//     //   } else if (element.classList.contains("articleSectionCard")) {
-//     //     // Exemple : ouvrir la lightbox
-//     //     openLightBox(element);
-//     //   }
-//     // });
-//   });
-// }
-
-// Initialiser les fonctionnalités
-// setupKeyboardAccessibility();
