@@ -163,10 +163,23 @@ a {
     text-decoration: none;
 }
 
-a:focus {
-    border: 5px solid #f39c12;
-    border-radius: 5px;
+
+#sortMenu:focus,
+.contact_button:focus,
+.articleSectionCardImage:focus,
+.fa-regular:focus {
+    border-radius: 2px;
+    outline: 2px solid #f39c12;
+    outline-offset: 4px;
 }
+
+a:focus,
+#sortMenu:focus,
+.contact_button:focus {
+    background-color: #DB8876;
+    color: black;
+}
+
 
 
 .photograph-header {
@@ -538,5 +551,4 @@ option {
     border: 0;
     clip: rect(0, 0, 0, 0);
     overflow: hidden;
-  }
-  
+}

@@ -34,7 +34,8 @@ export function photographerTemplate(data) {
     h2.textContent = name;
     p3.textContent = `${city}, ${country}`;
     p4.textContent = tagline;
-    p5.innerHTML = `${price} &euro;/jour`;
+    const prixParHeure = Math.floor(price / 24);
+    p5.innerHTML = `${prixParHeure} &euro;/heure`;
     article.appendChild(img);
     article.appendChild(h2);
     article.appendChild(p3);
@@ -85,7 +86,7 @@ export function photographerTemplate(data) {
     // Créer l'article principal
     const article = document.createElement("article");
     article.classList.add("articleSectionCard");
-    article.setAttribute("role", "group");
+    // article.setAttribute("role", "group");
     article.setAttribute("aria-label", `${title}`);
     article.setAttribute("likes", `${likes}`);
     article.setAttribute("titles", `${title}`);
@@ -96,6 +97,8 @@ export function photographerTemplate(data) {
       mediaElement = document.createElement("img");
       mediaElement.src = `./assets/photographers/${image}`;
       mediaElement.setAttribute("data-id", id);
+      mediaElement.setAttribute("tabindex", "0");
+      mediaElement.setAttribute("role", "button");
       mediaElement.setAttribute("data-photographerId", photographerId);
       mediaElement.alt = title; // Accessibilité
       mediaElement.classList.add("articleSectionCardImage");
@@ -103,6 +106,8 @@ export function photographerTemplate(data) {
       mediaElement = document.createElement("video");
       mediaElement.src = `./assets/photographers/${video}`;
       mediaElement.setAttribute("aria-label", title);
+      mediaElement.setAttribute("tabindex", "0");
+      mediaElement.setAttribute("role", "button");
       mediaElement.controls = true;
       mediaElement.classList.add("articleSectionCardImage");
     }
@@ -129,6 +134,8 @@ export function photographerTemplate(data) {
     const heartEmpty = document.createElement("i");
     heartEmpty.classList.add("fa-regular", "fa-heart");
     heartEmpty.setAttribute("aria-hidden", "true");
+    heartEmpty.setAttribute("role", "button");
+    heartEmpty.setAttribute("tabindex", "0");
 
     const heartFull = document.createElement("i");
     heartFull.classList.add("fa-solid", "fa-heart");
@@ -159,7 +166,9 @@ export function photographerTemplate(data) {
     const likeIcons = document.querySelectorAll(
       "#main > section > article > div > div > div > i.fa-regular.fa-heart"
     );
-    const likeCounts = document.querySelectorAll(".articleSectionCardLikeNomber");
+    const likeCounts = document.querySelectorAll(
+      ".articleSectionCardLikeNomber"
+    );
     const totalLikedElement = document.querySelector(".totalLiked");
   
     // Calcul initial du total des likes
@@ -168,34 +177,48 @@ export function photographerTemplate(data) {
   
     likeIcons.forEach((icon, index) => {
       let isLiked = false; // Empêche le multi-like sur un même média
-      icon.addEventListener("click", () => {
-        if (!isLiked) {
-          // Passe à "aimé"
-          likeIconsSolid[index].style.display = "inline-block";
-          likeIcons[index].style.display = "none";
   
-          // Met à jour les données et le DOM
-          medias[index].likes += 1;
-          totalLikes += 1;
-          likeCounts[index].textContent = medias[index].likes;
-          totalLikedElement.textContent = totalLikes;
+      // Gestion de l'événement "click"
+      icon.addEventListener("click", (e) => {
+        toggleLike(index, isLiked);
+        isLiked = !isLiked; // Inverse l'état après chaque clic
+      });
   
-          isLiked = true;
-        } else {
-          // Passe à "non-aimé"
-          likeIconsSolid[index].style.display = "none";
-          likeIcons[index].style.display = "inline-block";
-  
-          // Met à jour les données et le DOM
-          medias[index].likes -= 1;
-          totalLikes -= 1;
-          likeCounts[index].textContent = medias[index].likes;
-          totalLikedElement.textContent = totalLikes;
-  
-          isLiked = false;
+      // Gestion de l'événement "keydown" (Enter ou Space)
+      icon.addEventListener("keydown", (event) => {
+        const { key } = event;
+        if (key === "Enter" || key === " ") {
+          event.preventDefault(); // Empêche tout comportement par défaut
+          toggleLike(index, isLiked);
+          isLiked = !isLiked; // Inverse l'état après chaque pression de touche
         }
       });
     });
+  
+    // Fonction pour gérer l'état du like
+    function toggleLike(index, isLiked) {
+      if (!isLiked) {
+        // Passe à "aimé"
+        likeIconsSolid[index].style.display = "inline-block";
+        likeIcons[index].style.display = "none";
+  
+        // Met à jour les données et le DOM
+        medias[index].likes += 1;
+        totalLikes += 1;
+        likeCounts[index].textContent = medias[index].likes;
+        totalLikedElement.textContent = totalLikes;
+      } else {
+        // Passe à "non-aimé"
+        likeIconsSolid[index].style.display = "none";
+        likeIcons[index].style.display = "inline-block";
+  
+        // Met à jour les données et le DOM
+        medias[index].likes -= 1;
+        totalLikes -= 1;
+        likeCounts[index].textContent = medias[index].likes;
+        totalLikedElement.textContent = totalLikes;
+      }
+    }
   }
   
 
@@ -209,5 +232,3 @@ export function photographerTemplate(data) {
     handleLikes,
   };
 }
-
-
