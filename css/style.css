@@ -5,6 +5,10 @@ body {
     margin: 0;
 }
 
+.seo-address {
+    display: none;
+}
+
 
 header {
     display: flex;
@@ -63,15 +67,18 @@ p {
     font-weight: 400;
     margin: 0;
 }
-article>p:nth-child(3){
+
+article>p:nth-child(3) {
     color: #901C1C;
     font-size: 0.8rem;
 }
-article>p:nth-child(4){
+
+article>p:nth-child(4) {
     color: #000;
     font-size: 0.6rem;
 }
-article>p:nth-child(5){
+
+article>p:nth-child(5) {
     color: #757575;
     font-size: 0.6rem;
 }
