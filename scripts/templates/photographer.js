@@ -170,20 +170,20 @@ export function photographerTemplate(data) {
       ".articleSectionCardLikeNomber"
     );
     const totalLikedElement = document.querySelector(".totalLiked");
-  
+
     // Calcul initial du total des likes
     let totalLikes = medias.reduce((sum, media) => sum + media.likes, 0);
     totalLikedElement.textContent = totalLikes;
-  
+
     likeIcons.forEach((icon, index) => {
       let isLiked = false; // Empêche le multi-like sur un même média
-  
+
       // Gestion de l'événement "click"
       icon.addEventListener("click", () => {
         toggleLike(index, isLiked);
         isLiked = !isLiked; // Inverse l'état après chaque clic
       });
-  
+
       // Gestion de l'événement "keydown" (Enter ou Space)
       icon.addEventListener("keydown", (event) => {
         const { key } = event;
@@ -194,14 +194,14 @@ export function photographerTemplate(data) {
         }
       });
     });
-  
+
     // Fonction pour gérer l'état du like
     function toggleLike(index, isLiked) {
       if (!isLiked) {
         // Passe à "aimé"
         likeIconsSolid[index].style.display = "inline-block";
         likeIcons[index].style.display = "none";
-  
+
         // Met à jour les données et le DOM
         medias[index].likes += 1;
         totalLikes += 1;
@@ -211,7 +211,7 @@ export function photographerTemplate(data) {
         // Passe à "non-aimé"
         likeIconsSolid[index].style.display = "none";
         likeIcons[index].style.display = "inline-block";
-  
+
         // Met à jour les données et le DOM
         medias[index].likes -= 1;
         totalLikes -= 1;
@@ -220,7 +220,6 @@ export function photographerTemplate(data) {
       }
     }
   }
-  
 
   return {
     name,
