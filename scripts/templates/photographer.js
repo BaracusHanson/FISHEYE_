@@ -105,7 +105,7 @@ export function photographerTemplate(data) {
     } else if (video) {
       mediaElement = document.createElement("video");
       mediaElement.src = `./assets/photographers/${video}`;
-      mediaElement.setAttribute("aria-label", title);
+      mediaElement.setAttribute("aria-label",`video ${title}`);
       mediaElement.setAttribute("tabindex", "0");
       mediaElement.setAttribute("role", "button");
       mediaElement.controls = true;
@@ -126,20 +126,20 @@ export function photographerTemplate(data) {
     const likeNumber = document.createElement("p");
     likeNumber.classList.add("articleSectionCardLikeNomber");
     likeNumber.textContent = likes;
-    likeNumber.setAttribute("aria-label", `Nombre de likes : ${likes}`);
+    likeNumber.setAttribute("aria-label", `${likes}likes`);
 
     // Icônes de coeur (like)
     const heartContainer = document.createElement("div");
     heartContainer.classList.add("heartContainer");
     const heartEmpty = document.createElement("i");
     heartEmpty.classList.add("fa-regular", "fa-heart");
-    heartEmpty.setAttribute("aria-hidden", "true");
+    heartEmpty.setAttribute("aria-label",`${title} like`);
     heartEmpty.setAttribute("role", "button");
     heartEmpty.setAttribute("tabindex", "0");
 
     const heartFull = document.createElement("i");
     heartFull.classList.add("fa-solid", "fa-heart");
-    heartFull.setAttribute("aria-hidden", "true");
+    heartFull.setAttribute("aria-hidden", "false");
 
     heartContainer.appendChild(heartEmpty);
     heartContainer.appendChild(heartFull);
@@ -178,21 +178,27 @@ export function photographerTemplate(data) {
     likeIcons.forEach((icon, index) => {
       let isLiked = false; // Empêche le multi-like sur un même média
 
-      // Gestion de l'événement "click"
-      icon.addEventListener("click", () => {
-        toggleLike(index, isLiked);
-        isLiked = !isLiked; // Inverse l'état après chaque clic
-      });
-
-      // Gestion de l'événement "keydown" (Enter ou Space)
-      icon.addEventListener("keydown", (event) => {
-        const { key } = event;
-        if (key === "Enter" || key === " ") {
-          event.preventDefault(); // Empêche tout comportement par défaut
+      // Vérifier si l'écouteur est déjà attaché
+      if (!icon.dataset.listenerAttached) {
+        // Gestion de l'événement "click"
+        icon.addEventListener("click", () => {
           toggleLike(index, isLiked);
-          isLiked = !isLiked; // Inverse l'état après chaque pression de touche
-        }
-      });
+          isLiked = !isLiked; // Inverse l'état après chaque clic
+        });
+
+        // Gestion de l'événement "keydown" (Enter ou Space)
+        icon.addEventListener("keydown", (event) => {
+          const { key } = event;
+          if (key === "Enter" || key === " ") {
+            event.preventDefault(); // Empêche tout comportement par défaut
+            toggleLike(index, isLiked);
+            isLiked = !isLiked; // Inverse l'état après chaque pression de touche
+          }
+        });
+
+        // Marquer cet élément comme ayant un écouteur attaché
+        icon.dataset.listenerAttached = true;
+      }
     });
 
     // Fonction pour gérer l'état du like
