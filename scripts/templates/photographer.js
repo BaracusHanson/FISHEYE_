@@ -105,10 +105,12 @@ export function photographerTemplate(data) {
     } else if (video) {
       mediaElement = document.createElement("video");
       mediaElement.src = `./assets/photographers/${video}`;
-      mediaElement.setAttribute("aria-label",`video ${title}`);
+      mediaElement.setAttribute("aria-label", `video ${title}`);
+      mediaElement.setAttribute("data-photographerId", photographerId);
       mediaElement.setAttribute("tabindex", "0");
       mediaElement.setAttribute("role", "button");
-      mediaElement.controls = true;
+      mediaElement.controls = false;
+      
       mediaElement.classList.add("articleSectionCardImage");
     }
 
@@ -133,7 +135,7 @@ export function photographerTemplate(data) {
     heartContainer.classList.add("heartContainer");
     const heartEmpty = document.createElement("i");
     heartEmpty.classList.add("fa-regular", "fa-heart");
-    heartEmpty.setAttribute("aria-label",`${title} like`);
+    heartEmpty.setAttribute("aria-label", `${title} like`);
     heartEmpty.setAttribute("role", "button");
     heartEmpty.setAttribute("tabindex", "0");
 
