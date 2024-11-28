@@ -110,7 +110,7 @@ export function photographerTemplate(data) {
       mediaElement.setAttribute("tabindex", "0");
       mediaElement.setAttribute("role", "button");
       mediaElement.controls = false;
-      
+
       mediaElement.classList.add("articleSectionCardImage");
     }
 
@@ -172,6 +172,9 @@ export function photographerTemplate(data) {
       ".articleSectionCardLikeNomber"
     );
     const totalLikedElement = document.querySelector(".totalLiked");
+    if (!totalLikedElement) {
+      return;
+    }
 
     // Calcul initial du total des likes
     let totalLikes = medias.reduce((sum, media) => sum + media.likes, 0);

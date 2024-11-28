@@ -7,7 +7,7 @@ export async function displayPhotographerData() {
   // Récupérer l'ID du photographe depuis l'URL
   const urlParams = new URLSearchParams(window.location.search);
   const photographerId = parseInt(urlParams.get("id"), 10);
-  //   console.log(photographerId);
+ 
 
   // Charger les données des photographes
   const datas = await getPhotographers();
@@ -53,12 +53,15 @@ export function displayPhotographerMedia(medias) {
   const photographerMediaContainer = document.querySelector(".articleSection");
   const sortMenu = document.getElementById("sortMenu");
 
+  // Verifier si photographerMediaContainer existe avant execution du reste du code 
+  if (!photographerMediaContainer) {
+    return;
+  }
   // Fonction pour réafficher les médias triés ou non triés
+
   function renderMedia(mediaArray) {
-    // Vider le conteneur
-
+   
     photographerMediaContainer.innerHTML = "";
-
     mediaArray.forEach((media) => {
       const mediaModel = photographerTemplate(media); // Crée un modèle pour chaque média
       const mediaCard = mediaModel.createMediaCard(); // Génère la carte du média
@@ -104,6 +107,7 @@ export function displayPhotographerMedia(medias) {
     }
 
     // Réafficher les médias (triés ou par défaut)
+
     renderMedia(sortedMedia);
   });
 }
@@ -118,18 +122,18 @@ export function openLightBox(media) {
 
   let currentIndex; // Index actif global pour le média affiché
   let mediasByUser; // Médias spécifiques au photographe
- 
+
   // Fonction pour afficher un média donné dans la lightbox
   const displayMedia = (index) => {
     const currentMedia = mediasByUser[index];
-  
+
     if (!currentMedia) {
       console.error("Média introuvable à l'index :", index);
       return; // Arrête l'exécution si currentMedia est undefined
     }
-  
+
     if (currentMedia.image) {
-      console.log("Les médias (image) :", currentMedia.image);
+      
       mediaContainer.innerHTML = `
         <img
           class="lithBoxImage"
@@ -137,7 +141,7 @@ export function openLightBox(media) {
           alt="${currentMedia.title}"
         />`;
     } else if (currentMedia.video) {
-      console.log("Les médias (vidéo) :", currentMedia.video);
+      
       mediaContainer.innerHTML = `
         <video
           class="lithBoxImage"
@@ -146,13 +150,11 @@ export function openLightBox(media) {
           autoplay
           aria-label="${currentMedia.title}"
         ></video>`;
-    } else {
-      console.error("Ni image ni vidéo trouvée pour ce média :", currentMedia);
     }
-  
+
     imageTitle.textContent = currentMedia.title || "Titre indisponible";
   };
-  
+
   // Fonction pour fermer la lightbox
   const closeLightBox = () => {
     lightBox.classList.add("hidden");
@@ -189,7 +191,7 @@ export function openLightBox(media) {
       mediasByUser = media.filter(
         (media) => media.photographerId === parseInt(mediaphotographerId, 10)
       );
-console.log(mediasByUser);
+      
       // Initialiser l'index actif
       currentIndex = index;
 
@@ -223,8 +225,6 @@ console.log(mediasByUser);
       }
     });
   });
-
-
 }
 
 function closeLightBox() {
